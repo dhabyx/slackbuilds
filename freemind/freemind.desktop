@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=freemind
+Name=FreeMind
+GenericName=FreeMind
+Comment=Mind Mapping Tool
+Icon=freemind
+StartupNotify=true
+MimeType=application/x-freemind;
+Categories=Qt;KDE;GNOME;Application;Office;
