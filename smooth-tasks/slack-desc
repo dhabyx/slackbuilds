@@ -1,0 +1,18 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+     |-----handy-ruler----------------------------------------------------|
+smooth-tasks: Smooth Tasks
+smooth-tasks:
+smooth-tasks: Smooth Tasks is a fork of the STasks plasma applet.
+smooth-tasks:
+smooth-tasks: This taskbar replacement has window peeking similar to 
+smooth-tasks: Windows 7 when you use the kwin 'highlite window' effect. 
+smooth-tasks: Even if this effect is not used you can click the tooltip 
+smooth-tasks: in order to activate the corresponding window.
+smooth-tasks:
+smooth-tasks: 
