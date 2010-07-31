@@ -1,0 +1,8 @@
+MySQL Proxy
+
+MySQL Proxy is an application that communicates over the 
+network using the MySQL Network Protocol and provides
+communication between one or more MySQL servers and one or
+more MySQL clients.
+
+This requires libevent and lua.

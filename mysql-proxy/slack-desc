@@ -1,0 +1,18 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+     |-----handy-ruler----------------------------------------------------|
+mysql-proxy: MySQL Proxy
+mysql-proxy:  
+mysql-proxy: MySQL Proxy is an application that communicates over the 
+mysql-proxy: network using the MySQL Network Protocol and provides
+mysql-proxy: communication between one or more MySQL servers and one or
+mysql-proxy: more MySQL clients.
+mysql-proxy:  
+mysql-proxy:  
+mysql-proxy: http://forge.mysql.com/wiki/MySQL_Proxy
+mysql-proxy:
