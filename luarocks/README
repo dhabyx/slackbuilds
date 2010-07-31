@@ -1,0 +1,10 @@
+LuaRocks
+
+A deployment and management system for Lua modules. 
+
+Allows you to install Lua modules as self-contained packages
+called "rocks", which also contain version dependency
+information.
+
+This requires lua.
+
