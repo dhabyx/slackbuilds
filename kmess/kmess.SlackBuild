@@ -8,6 +8,7 @@ ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 GITCHECK=${GITCHECK:-NO}
+KMESS_STABLE=${KMESS_STABLE:-YES}
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -44,11 +45,14 @@ if [ "$GITCHECK" = "YES" ]; then
     mkdir $CWD/kmess-git
     cd $CWD/kmess-git
     git clone git://gitorious.org/kmess/kmess.git
-    cd kmess
-    git submodule update --init contrib/isf-qt
   fi
 fi
 
+if [ "$KMESS_STABLE" = YES ]; then
+  cd kmess
+  git checkout -b kmess-2.0.x origin/kmess-2.0.x
+  git submodule update --init contrib/isf-qt
+fi
 
 cp -R $CWD/$PRGNAM-git/kmess $TMP/$PRGNAM-git
 cd $TMP/$PRGNAM-git
