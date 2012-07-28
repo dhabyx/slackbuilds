@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-  <mime-type type="application/x-mysql.workbench">
-    <comment>MySQL Workbench Project</comment>
-    <comment xml:lang="es">Proyecto de MySQL Workbench</comment>
-    <glob pattern="*.mwb"/>
-  </mime-type>
-</mime-info>
