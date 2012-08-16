@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for sqliteman
+# Slackware build script for ctemplate
 
-# Copyright (c) 2008, Dhaby Xiloj <slack.dhabyx@gmail.com>
+# Copyright (c) 2012, Dhaby Xiloj <slack.dhabyx@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -21,25 +21,26 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=sqliteman
-VERSION=1.2.2
+PRGNAM=ctemplate
+VERSION=${VERSION:-2.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
-    # Unless $ARCH is already set, use uname -m for all other archs:
-       *) ARCH=$( uname -m ) ;;
-  esac
+    case "$( uname -m )" in
+      i?86) ARCH=i486 ;;
+      arm*) ARCH=arm ;;
+      *) ARCH=$( uname -m ) ;;
+    esac
 fi
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
+
+DOCS="AUTHORS COPYING ChangeLog INSTALL NEWS README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -50,12 +51,9 @@ elif [ "$ARCH" = "i686" ]; then
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
   LIBDIRSUFFIX="64"
-else
-  SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
 fi
 
-set -e
+set -e # Exit on most errors
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
@@ -70,37 +68,32 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-#patch -p1 < $CWD/sqliteman-1.2.2.CMakeLists.patch
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --localstatedir=/var \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --build=$ARCH-slackware-linux
 
-mkdir -p build
-cd build
-  cmake \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX="$LIBDIRSUFFIX" \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DCMAKE_BUILD_TYPE=Release ..
-  make
-  make install DESTDIR=$PKG
-  install sqliteman/sqliteman $PKG/usr/bin/sqliteman
-cd ..
+make
+make install DESTDIR=$PKG
 
-find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --keep-file-symbols --strip-unneeded 2> /dev/null || true
-
-# /usr/share/icons is for themed/scaled icons
-mv $PKG/usr/share/icons $PKG/usr/share/pixmaps
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS README COPYING VERSION $PKG/usr/doc/$PRGNAM-$VERSION
-mv $PKG/usr/share/sqliteman/doc/en $PKG/usr/doc/$PRGNAM-$VERSION/html
+cp -ar $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-rm -rf $PKG/usr/share/sqliteman/doc
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
