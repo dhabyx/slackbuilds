@@ -23,8 +23,8 @@
 
 PRGNAM=sqliteman
 VERSION=1.2.2
-BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+BUILD=${BUILD:-2}
+TAG=${TAG:-_dbx}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/build}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -70,7 +70,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-#patch -p1 < $CWD/sqliteman-1.2.2.CMakeLists.patch
+#patch QScintilla in cmake
+patch -p1 < $CWD/sqliteman-1.2.2.CMakeLists.patch
 
 mkdir -p build
 cd build
@@ -83,6 +84,7 @@ cd build
     -DCMAKE_BUILD_TYPE=Release ..
   make
   make install DESTDIR=$PKG
+  # reinstalling for preserve symbolic links
   install sqliteman/sqliteman $PKG/usr/bin/sqliteman
 cd ..
 
