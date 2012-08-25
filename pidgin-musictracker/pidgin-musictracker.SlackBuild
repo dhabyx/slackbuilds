@@ -24,7 +24,7 @@
 PRGNAM=pidgin-musictracker
 VERSION=${VERSION:-0.4.22}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_dbx}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/build}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
