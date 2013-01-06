@@ -6,13 +6,13 @@
 # customary to leave one space after the ':'.
 
      |-----handy-ruler----------------------------------------------------|
-smooth-tasks: Smooth Tasks
-smooth-tasks:
-smooth-tasks: Smooth Tasks is a fork of the STasks plasma applet.
-smooth-tasks:
-smooth-tasks: This taskbar replacement has window peeking similar to 
-smooth-tasks: Windows 7 when you use the kwin 'highlite window' effect. 
-smooth-tasks: Even if this effect is not used you can click the tooltip 
-smooth-tasks: in order to activate the corresponding window.
-smooth-tasks:
-smooth-tasks: 
+ctemplate: CTemplate
+ctemplate:  
+ctemplate: CTemplate is a simple but powerful template language for C++. 
+ctemplate: It emphasizes separating logic from presentation: it is 
+ctemplate: impossible to embed application logic in this template language. 
+ctemplate:
+ctemplate:  http://code.google.com/p/ctemplate/
+ctemplate:  
+ctemplate:
+ctemplate:

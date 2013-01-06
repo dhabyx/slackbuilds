@@ -12,4 +12,4 @@ config() {
 }
 # List of configuration files (they should end in .new)
 
-config etc/rc.d/rc.noip.new
+config etc/rc.d/rc.noip2.new

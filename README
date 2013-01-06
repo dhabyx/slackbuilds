@@ -1,5 +1,3 @@
-This is a personal Slackbuild's Repository; all slackbuilds are tested in slackware current and sometimes in most recent stable version, others need Gnome libs available in GnomeSlackBuild project.
+This is a personal Slackbuild's Repository; all slackbuilds are tested in slackware64-current.
 
-Feel free to send patches, fork or colaborate with me.
-
-Regards.
+If you found any problems send your issues or patches.

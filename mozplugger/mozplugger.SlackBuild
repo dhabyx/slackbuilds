@@ -2,7 +2,7 @@
 
 # Slackware build script for mozplugger
 
-# Copyright (c) jue oct 15 18:27:01 CST 2009, Dhaby Xiloj <slack.dhabyx@gmail.com>
+# Copyright (c) 2009, Dhaby Xiloj <slack.dhabyx@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -22,17 +22,22 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mozplugger
-VERSION=${VERSION:-1.13.0}
-ARCH=${ARCH:-i486}
+VERSION=${VERSION:-1.14.6}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_dbx}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/build}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-
-DOCS="COPYING ChangeLog README"
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -43,9 +48,9 @@ elif [ "$ARCH" = "i686" ]; then
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
   LIBDIRSUFFIX="64"
-elif [ "$ARCH" = "athlon64" ]; then
-  SLKCFLAGS="-O2 -march=athlon64 -pipe -fomit-frame-pointer"
-  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
 fi
 
 set -e # Exit on most errors
@@ -63,26 +68,35 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-RPM_OPT_FLAGS="$SLKCFLAGS" make linux libprefix=/lib${LIBDIRSUFFIX} 
-make install libprefix=/lib${LIBDIRSUFFIX} root=$PKG
+# sigh  --rworkman 
+# modified for 1.14.6 version
+patch -p1 < $CWD/Makefile.in.diff
 
-( cd $PKG
-  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
-)
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --mandir=/usr/man \
+  --build=$ARCH-slackware-linux
 
-# relocating files
-mv $PKG/usr/share/man $PKG/usr/man
-rm -Rf $PKG/usr/share
+make \
+  XCFLAGS="$SLKCFLAGS" \
+  PLUGINDIRS=/usr/lib${LIBDIRSUFFIX}/mozilla/plugins \
+  libprefix=/lib64
+
+make install \
+  PLUGINDIRS=/usr/lib${LIBDIRSUFFIX}/mozilla/plugins \
+  libprefix=/lib64 \
+  root=$PKG
+
 mv $PKG/etc/mozpluggerrc $PKG/etc/mozpluggerrc.new
 
-( cd $PKG/usr/man
-  find . -type f -exec gzip -9 {} \;
-  for i in $( find . -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
-)
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -ar $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a COPYING ChangeLog README $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -91,4 +105,3 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-

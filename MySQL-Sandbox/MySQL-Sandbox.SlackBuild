@@ -2,7 +2,7 @@
 
 # Slackware build script for MySQL-Sandbox
 
-# Copyright (c) vie feb 26 23:31:08 CST 2010, Dhaby Xiloj <slack.dhabyx@gmail.com>
+# Copyright (c) 2010, Dhaby Xiloj <slack.dhabyx@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -22,14 +22,22 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=MySQL-Sandbox
-VERSION=${VERSION:-3.0.08}
-ARCH=${ARCH:-i486}
+VERSION=${VERSION:-3.0.25}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
-NUMJOBS=${NUMJOBS:-1}
+TAG=${TAG:-_dbx}
+
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/build}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -44,6 +52,9 @@ elif [ "$ARCH" = "i686" ]; then
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
   LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
 fi
 
 set -e # Exit on most errors
@@ -61,22 +72,33 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-perl Makefile.PL PREFIX=/usr INSTALLDIRS=vendor INSTALLVENDORMAN3DIR=/usr/man/man3
-make -j$NUMJOBS OPTIMIZE="$SLKCFLAGS"
+perl Makefile.PL \
+  PREFIX=/usr \
+  INSTALLDIRS=vendor \
+  INSTALLVENDORMAN3DIR=/usr/man/man3
+make OPTIMIZE="$SLKCFLAGS"
 make install DESTDIR=$PKG
 
-( cd $PKG
-  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
-)
+# Remove 'special' files
+find $PKG -name perllocal.pod \
+  -o -name ".packlist" \
+  -o -name "*.bs" \
+  | xargs rm -f
+eval $(perl -V:vendorarch)
+rm -rf $PKG/$vendorarch $PKG/usr/lib${LIBDIRSUFFIX}/perl?/?.??.?
 
-( cd $PKG/usr/man
-  find . -type f -exec gzip -9 {} \;
-  for i in $( find . -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
-)
+# Remove empty directories
+find $PKG -depth -type d -empty -delete || true
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+# Compress man pages
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -ar $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -84,4 +106,3 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-
