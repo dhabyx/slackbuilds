@@ -1,0 +1,4 @@
+libvlc-qt
+
+VLC-Qt is a free library used to connect Qt and libvlc libraries. It contains core classes for main media playback and also some GUI classes for faster media player developement.
+
