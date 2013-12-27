@@ -2,6 +2,7 @@
 #
 # Slackware build script for GMPC
 #
+# Copyright 2014 Dhaby Xiloj, Guatemala
 # Copyright 2009-2010  Erik W. Hanson, Minneapolis, MN, USA
 # All rights reserved.
 #
@@ -25,7 +26,7 @@
 PRGNAM=gmpc
 VERSION=${VERSION:-11.8.16}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_DbX}
+TAG=${TAG:-_SBo}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -36,7 +37,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/build}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -68,6 +69,9 @@ find -L . \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+# patch for image buttons
+zcat $CWD/buttons.patch.gz | patch -p1
 
 CFLAGS="$SLKCFLAGS" \
 ./configure \
