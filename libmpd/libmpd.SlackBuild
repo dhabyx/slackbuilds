@@ -1,9 +1,7 @@
 #!/bin/sh
 
 # Slackware build script for libmpd
-# Copyright 2013, Dhaby Xiloj <slack.dhabyx@gmail.com>
-#
-# Based on work of Erick Hanson and Kristaps Esterlins
+# Copyright 2014, Dhaby Xiloj, Guatemala C. A.
 #
 # Written by Kristaps Esterlins <esterlinsh[at]gmail.com>
 #  (no reply from above email)
@@ -31,7 +29,7 @@
 PRGNAM=libmpd
 VERSION=11.8.17
 BUILD=${BUILD:-1}
-TAG=${TAG:-_DbX}
+TAG=${TAG:-_SBo}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -42,7 +40,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/build}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
