@@ -1,7 +1,10 @@
 Additional plugins for GMPC.
 
-awn and webkitgtk are optional deps.
-Some of these are available at SlackBuilds.org. If you have any
-of these and would like to enable the plugin, the variables are
-as follows: AWN WIKIPEDIA
+You can enable this optional features:
+AWN=yes|no (default: no), requires avant-window-navigator
+  shows track progress and album art in the task 
+  icon of GMPC on the dock 
+WIKIPEDIA=yes|no (default:no), requires webkitgtk
+  that shows the Wikipedia page of the currently
+  playing artist. 
 

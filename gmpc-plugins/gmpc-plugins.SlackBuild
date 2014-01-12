@@ -2,9 +2,7 @@
 #
 # Slackware build script for gmpc-plugins
 #
-# Copyright 2013, Dhaby Xiloj <slack.dhabyx@gmail.com>
-#
-# Based on work of Erick Hanson
+# Copyright 2014, Dhaby Xiloj <slack.dhabyx@gmail.com>
 # Copyright 2009-2010  Erik W. Hanson, Minneapolis, MN, USA
 # All rights reserved.
 #
@@ -28,9 +26,8 @@
 PRGNAM=gmpc-plugins
 VERSION=${VERSION:-11.8.16}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_DbX}
+TAG=${TAG:-_SBo}
 
-AVAHI=${AVAHI:-yes}		# avahi
 AWN=${AWN:-no}			# AWN
 WIKIPEDIA=${WIKIPEDIA:-no}	# WebKitGTK
 
@@ -43,7 +40,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/build}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -95,7 +92,6 @@ CFLAGS="$SLKCFLAGS" \
   --enable-tagedit \
   --enable-libnotify \
   --enable-mmkeys \
-  --enable-avahi=$AVAHI \
   --enable-awn=$AWN \
   --enable-wikipedia=$WIKIPEDIA \
   --build=$ARCH-slackware-linux
