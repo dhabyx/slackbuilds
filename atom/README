@@ -5,8 +5,6 @@ a modern text editor, like a file system browser, fuzzy finder for
 quickly opening files, fast project-wide search and replace,
 snippets, code folding and more.
 
-
 To build Atom is necessary to download about 500MB of data, 
 which are temporarily stored in /tmp/atom-cached-atom-shells
 and ~/.atom, which can be deleted after building.
-
