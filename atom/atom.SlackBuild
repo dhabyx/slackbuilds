@@ -118,7 +118,6 @@ sed -e "s#<%= description %>#Hackable text editor#" \
 
 if [ "$DELETE_CACHE" == "yes" ]; then
     # delete temporal data
-    rm -rf /tmp/atom-cached-atom-shells
     rm -rf ~/.atom/
 fi
 
