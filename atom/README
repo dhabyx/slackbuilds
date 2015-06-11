@@ -12,6 +12,9 @@ To build Atom is necessary to download about 500MB of data,
 which are temporarily stored in ~/.atom, which can be 
 deleted after building.
 
+If you are upgrading from 0.138.0 version, you need replace node
+package with iojs.
+
 Optional building features:
 * Disable compiling metrics module for Google Analytics
   for poeple who love your privacy
