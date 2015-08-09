@@ -1,0 +1,10 @@
+Open Broadcaster Software Studio is an open source software 
+for video recording and live streaming. 
+    
+Some supported fetures include:
+- Encoding using H264 and ACC
+- Live RTMP streaming to Twitch, YouTube, DailyMotion and more
+- Unlimited number of scenes and sources 
+
+Qt5 must be compiled with USEPULSE=yes and ffmpeg with
+X264=yes options.
