@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=sqldeveloper
+Name=SQL Developer
+GenericName=Oracle SQL Developer
+Comment=Oracle SQL Developer
+Icon=sqldeveloper
+StartupNotify=true
+Categories=Qt;KDE;GTK;GNOME;Development;
