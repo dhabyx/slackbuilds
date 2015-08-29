@@ -1,0 +1,43 @@
+Oracle Database 11g Express Edition (Oracle Database XE) 
+
+is an entry-level, small-footprint database based on the Oracle 
+Database 11g Release 2 code base. It's free to develop, deploy, 
+and distribute; fast to download; and simple to administer.
+
+This will only work on 64 bit slackware.
+
+You need an oracle user in group dba before running this script.
+This should work:
+
+groupadd -g 312 dba
+useradd -d /u01/app/oracle -s /bin/bash -u 312 -g 312 oracle
+
+Oracle recomend some system requirements in kernel patameters,
+this slackbuild provides an sysctl file for that; you only need
+restart or run:
+
+# sysctl --system 
+
+After installing you must configure the database: 
+
+#/etc/rc.d/rc.oracle-xe configure 
+
+
+To start and stop the database at boot/shutdown, make sure
+/etc/rc.d/rc.oracle-xe is executable and update the following files:
+
+/etc/rc.d/rc.local
+==================
+# Startup oracle-xe
+if [ -x /etc/rc.d/rc.oracle-xe ]; then
+    /etc/rc.d/rc.oracle-xe start
+fi
+
+/etc/rc.d/rc.local_shutdown
+===========================
+# Stop oracle-xe
+if [ -x /etc/rc.d/rc.oracle-xe ]; then
+    /etc/rc.d/rc.oracle-xe stop
+fi
+
+
