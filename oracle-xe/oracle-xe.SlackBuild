@@ -76,22 +76,29 @@ mv u01 usr $PKG
 mkdir -p $PKG/etc/rc.d
 mv etc/init.d/oracle-xe $PKG/etc/rc.d/rc.oracle-xe
 chmod 755 $PKG/etc/rc.d/rc.oracle-xe
+sed -i 's#/etc/init.d/oracle-xe#/etc/rc.d/rc.oracle-xe#g' $PKG/etc/rc.d/rc.oracle-xe
+
 mkdir -p $PKG/etc/sysctl.d/
 cp $CWD/10-oracle.xe.conf.new $PKG/etc/sysctl.d/
 
 # copy environment files
 mkdir -p $PKG/etc/profile.d
-cp $PKG/u01/app/oracle/product/${VERSION}/xe/bin/oracle_env.*sh \
-    $PKG/etc/profile.d
+cp $PKG/u01/app/oracle/product/${VERSION}/xe/bin/oracle_env.sh \
+    $PKG/etc/profile.d/oracle-env.sh
+    echo "export TNS_ADMIN=\$ORACLE_HOME/network/admin" >> $PKG/etc/profile.d/oracle-env.sh
+    
+cp $PKG/u01/app/oracle/product/${VERSION}/xe/bin/oracle_env.csh \
+    $PKG/etc/profile.d/oracle-env.csh
+    echo "setenv TNS_ADMIN \$ORACLE_HOME/network/admin" >> $PKG/etc/profile.d/oracle-env.csh
 
 # add oracle jdbc driver to classpath
 mkdir -p $PKG/etc/profile.d/
-cat << EOF > $PKG/etc/profile.d/oracle_jdbc_env.csh
+cat << EOF > $PKG/etc/profile.d/oracle-jdbc-env.csh
 #!/bin/csh
 setenv CLASSPATH \$CLASSPATH:\$ORACLE_HOME/jdbc/lib/ojdbc6.jar
 EOF
 
-cat << EOF > $PKG/etc/profile.d/oracle_jdbc_env.sh
+cat << EOF > $PKG/etc/profile.d/oracle-jdbc-env.sh
 #!/bin/sh
 export CLASSPATH=\$CLASSPATH:\$ORACLE_HOME/jdbc/lib/ojdbc6.jar
 EOF
@@ -107,7 +114,8 @@ sed -i "s/ -lsvml//" $PKG/u01/app/oracle/product/11.2.0/xe/lib/sysliblist
 sed -i "s/konsole -T /konsole -p tabtitle=/" \
     $PKG/u01/app/oracle/product/11.2.0/xe/config/scripts/runsqlplus.sh
 
-# creating empty dirs  and files for oracle
+# creating empty dirs and files for oracle
+# TODO: smoe bug in first load of configure
 mkdir -p $PKG/u01/app/oracle/product/${VERSION}/xe/config/log
 mkdir -p $PKG/u01/app/oracle/product/${VERSION}/xe/rdbms/{audiot,log}
 mkdir -p $PKG/u01/app/oracle/product/${VERSION}/xe/network/{trace,log}
