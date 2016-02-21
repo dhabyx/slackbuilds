@@ -25,7 +25,7 @@ if [ -x /sbin/ldconfig ]; then
 fi
 
 
-# from oracle scripts
+# from rpm oracle scripts
 availphymem=`cat /proc/meminfo | grep '^MemTotal' | awk '{print $2}'`
 availphymem=`echo $availphymem / 1024 | bc`
 memory_target=`echo 0.40 \* $availphymem | bc | sed "s/\..*//"`

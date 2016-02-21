@@ -71,7 +71,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# moving everything to your place
+# moving everything to proper place
 mv u01 usr $PKG
 mkdir -p $PKG/etc/rc.d
 mv etc/init.d/oracle-xe $PKG/etc/rc.d/rc.oracle-xe
@@ -114,8 +114,7 @@ sed -i "s/ -lsvml//" $PKG/u01/app/oracle/product/11.2.0/xe/lib/sysliblist
 sed -i "s/konsole -T /konsole -p tabtitle=/" \
     $PKG/u01/app/oracle/product/11.2.0/xe/config/scripts/runsqlplus.sh
 
-# creating empty dirs and files for oracle
-# TODO: smoe bug in first load of configure
+# creating empty dirs for proper oracle configuration
 mkdir -p $PKG/u01/app/oracle/product/${VERSION}/xe/config/log
 mkdir -p $PKG/u01/app/oracle/product/${VERSION}/xe/rdbms/{audiot,log}
 mkdir -p $PKG/u01/app/oracle/product/${VERSION}/xe/network/{trace,log}
