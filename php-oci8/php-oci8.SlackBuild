@@ -103,8 +103,8 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 # slackware 14.1 current use /etc/php.d
-mkdir -p $PKG/etc/php
-cat << EOF > $PKG/etc/php/${PKGNAM}.ini
+mkdir -p $PKG/etc/php.d
+cat << EOF > $PKG/etc/php.d/${PKGNAM}.ini
 ; Enable oci8 extension module
 ; extension=oci8.so
 EOF
