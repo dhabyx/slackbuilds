@@ -11,7 +11,7 @@ hplip-plugin:
 hplip-plugin: Some HP printers require proprietary software technologies to allow
 hplip-plugin: full access to printer features and performance.
 hplip-plugin:
-hplip-plugin: This plug-in works and is required by CUPS and HPLIP software for 
+hplip-plugin: This plug-in is required by CUPS and HPLIP software for
 hplip-plugin: some laserjet printers.
 hplip-plugin:
 hplip-plugin:

@@ -2,7 +2,7 @@
 
 # Slackware build script for hplip-plugin
 
-# Copyright 2015 Dhaby Xiloj <slack.dhabyx@gmail.com>
+# Copyright 2016 Dhaby Xiloj <slack.dhabyx@gmail.com> Guatemala
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=hplip-plugin
-VERSION=${VERSION:-3.15.7}
+VERSION=${VERSION:-3.16.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -53,7 +53,7 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT 
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 mkdir $PRGNAM-$VERSION

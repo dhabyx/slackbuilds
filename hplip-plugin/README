@@ -3,8 +3,10 @@ HPLIP Plugin (Binary plugin for HP devices)
 Some HP printers require proprietary software technologies to allow
 full access to printer features and performance.
 
-This plug-in works and is required by CUPS and HPLIP software for 
-some laserjet printers.
+This plug-in is required by CUPS and HPLIP software for some laserjet
+printers.
+
+HPLIP Plugin is distributed under EULA license and this script accept
+the license for you. Do not use if you dont agree with the conditions.
 
 To chech the propper installation, use hp-diagnose_plugin command.
-
