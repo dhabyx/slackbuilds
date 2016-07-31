@@ -5,6 +5,10 @@
 # Copyright 2015 Dhaby Xiloj <slack.dhabyx@gmail.com>
 # All rights reserved.
 #
+# Some ideas has taked from
+# https://github.com/aclemons/slackbuilds/tree/master/system/oracle-xe-11g
+#   Andrew Clemons, Wellingtong, New Zeland
+#
 # Redistribution and use of this script, with or without modification, is
 # permitted provided that the following conditions are met:
 #
@@ -47,10 +51,13 @@ set -e
 
 # Check if oracle group and user exist
 if [ "$(grep ^oracle /etc/passwd)" = "" -o "$(grep ^dba /etc/group)" = "" ] ; then
-        printf "\nYou must have apropiate user an group for oracle-xe.\n\nExample:\n"
-        printf "\t# groupadd -g 312 dba\n"
-        printf "\t# useradd -d /u01/app/oracle -s /bin/bash -u 312 -g 312 oracle\n\n"
-        exit 1
+    cat << EOF
+You must have apropiate user and group for oracle-xe.
+    Example:
+        # groupadd -g 329 dba
+        # useradd -d /u01/app/oracle -s /bin/bash -u 329 -g 329 oracle
+EOF
+    exit 1
 fi
 
 rm -rf $PKG
@@ -86,7 +93,7 @@ mkdir -p $PKG/etc/profile.d
 cp $PKG/u01/app/oracle/product/${VERSION}/xe/bin/oracle_env.sh \
     $PKG/etc/profile.d/oracle-env.sh
     echo "export TNS_ADMIN=\$ORACLE_HOME/network/admin" >> $PKG/etc/profile.d/oracle-env.sh
-    
+
 cp $PKG/u01/app/oracle/product/${VERSION}/xe/bin/oracle_env.csh \
     $PKG/etc/profile.d/oracle-env.csh
     echo "setenv TNS_ADMIN \$ORACLE_HOME/network/admin" >> $PKG/etc/profile.d/oracle-env.csh
