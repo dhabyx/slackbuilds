@@ -39,4 +39,3 @@ fi
 
 sed -i "s/%memory_target%/$memory_target/g" u01/app/oracle/product/${VERSION}/xe/config/scripts/init.ora
 sed -i "s/%memory_target%/$memory_target/g" u01/app/oracle/product/${VERSION}/xe/config/scripts/initXETemp.ora
-

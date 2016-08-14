@@ -6,7 +6,7 @@ You must be run the following commands:
 # groupadd -g 329 dba
 # useradd -d /u01/app/oracle -s /bin/bash -u 329 -g 329 oracle
 
-Oracle recomend some system requirements in kernel patameters,
+Oracle recomend some system requirements in kernel parameters,
 acording to oracle-xe installation guide at:
 https://docs.oracle.com/cd/E17781_01/install.112/e18802/toc.htm#BABJFAIA
 

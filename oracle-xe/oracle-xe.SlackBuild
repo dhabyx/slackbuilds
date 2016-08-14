@@ -82,7 +82,7 @@ find -L . \
 mv u01 usr $PKG
 mkdir -p $PKG/etc/rc.d
 mv etc/init.d/oracle-xe $PKG/etc/rc.d/rc.oracle-xe
-chmod 755 $PKG/etc/rc.d/rc.oracle-xe
+chmod 644 $PKG/etc/rc.d/rc.oracle-xe
 sed -i 's#/etc/init.d/oracle-xe#/etc/rc.d/rc.oracle-xe#g' $PKG/etc/rc.d/rc.oracle-xe
 
 mkdir -p $PKG/etc/sysctl.d/
@@ -139,8 +139,7 @@ chown -R oracle:dba $PKG/u01
 chmod 755 $PKG/u01/app/oracle/product/${VERSION}/xe/config/scripts/*.sh
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-mv $PKG/usr/share/doc/oracle_xe/* \
-  $PKG/usr/doc/$PRGNAM-$VERSION
+mv $PKG/usr/share/doc/oracle_xe/* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
