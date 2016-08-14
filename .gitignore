@@ -7,3 +7,8 @@
 *.tgz
 *.zip
 *.xz
+*.rpm
+*.run
+*.deb
+downloads/
+v[0-9]*
