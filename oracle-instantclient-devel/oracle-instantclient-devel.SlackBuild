@@ -2,7 +2,7 @@
 
 # Slackware build script for oracle-instantclient-devel
 
-# Copyright 2015 Dhaby Xiloj <slack.dhabyx@gmail.com>
+# Copyright 2015 Dhaby Xiloj <slack.dhabyx@gmail.com> Guatemala
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -32,7 +32,7 @@ ORAVER="12.1"
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
       i?86) ARCH=i386 ;;
-    x86_67) ARCH=x86_64 ;;
+    x86_64) ARCH=x86_64 ;;
          *) echo "Architecture not supported"; exit 0;
   esac
 fi
@@ -54,7 +54,7 @@ RPMNAM="$(echo ${PRGNAM} | cut -d '-' -f 1-2)\
 ${ORAVER}-$(echo ${PRGNAM} | cut -d '-' -f 3)\
 -$VERSION-$RELEASE.$ARCH.rpm"
 
-set -e 
+set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
