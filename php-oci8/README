@@ -1,8 +1,9 @@
-PHP-OCI8 in an extension to access Oracle Database. 
+PHP-OCI8 in an extension to access Oracle Database.
 
-The extension can be linked with Oracle client libraries 
+The extension can be linked with Oracle client libraries
 from Oracle Database 10.2, 11, or 12.1.
 
-To enable the oci8 extension for php, go to
-/etc/php/oci8.ini and uncomment the line:
-  ; extension=oci8.so
+Its important to have the ORACLE_CLIENT_HOME variable
+properly loaded, this is part of oracle-instantclient-basic
+package. See README.Slackware for proper use of Slackbuild and
+configurations hits.
