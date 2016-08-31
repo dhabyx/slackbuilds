@@ -1,11 +1,23 @@
 #!/bin/sh
 
-OUTPUT=${OUTPUT:-"../"}
+CWD=$(pwd)
+OUTPUT=${OUTPUT:-"$CWD/.."}
 
 if [[ $1 = '' ]]; then
   echo "Usage: $0 <package directory>"
   exit
 fi
 
-find $1 -type f -not -name "*~" -and -not -name ".*" -print0 | \
-    tar -cvjf $OUTPUT/$1.tar.bz2 --null -T -
+PKGDIR=$(basename $1)
+
+if [[ -d $PKGDIR ]]; then
+  OUTPUT_TAR="$OUTPUT/$PKGDIR.tar.bz2"
+  rm -f $OUTPUT_TAR
+  find $PKGDIR -type f -not -name "*~" -and -not -name ".*" -print0 | \
+      tar -cvjf $OUTPUT_TAR --null -T -
+  echo "Tarball saved on: $OUTPUT_TAR"
+  MD5SUM=$(md5sum $OUTPUT_TAR | cut -f 1 -d ' ')
+  echo "MD5SUM: $MD5SUM"
+else
+  echo "$PKGDIR directory not found"
+fi

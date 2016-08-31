@@ -27,7 +27,13 @@ DOWNLOAD_PATH="$CWD/downloads"
 
 set -e
 
-INFO_FILES=$(find . -name '*.info' -not -path "./templates*")
+BLACKLISTFILE="blacklist"
+BLACKLIST=""
+while IFS=' ' read -r  BLACKLISTED_ITEM; do
+  BLACKLIST="$BLACKLIST -not -path '*${BLACKLISTED_ITEM}*'"
+done <<< "$(sed -e 's/#.*$//' -e '/^$/d' $BLACKLISTFILE)"
+
+INFO_FILES=$(eval "find . -name '*.info' -not -path './templates*' $BLACKLIST")
 
 # test if a file exists and if md5sum it's ok
 # how to use downloadSources:
