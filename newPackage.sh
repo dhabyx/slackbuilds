@@ -32,7 +32,7 @@ COUNTRY=""
 ALIAS="DhabyX"
 
 function displayHelp {
-cat << EOF 
+cat << EOF
 Usage:
     $0 package_name [template]
 
@@ -96,6 +96,6 @@ done
 
 cat $TMPL_PATH/template.info | \
     sed 's/".*"/""/' | \
-    sed 's/MAINTAINER=""/MAINTEINER="'$ALIAS'"/' | \
+    sed 's/MAINTAINER=""/MAINTAINER="'$ALIAS'"/' | \
     sed 's/EMAIL=""/EMAIL="'$EMAIL'"/' | \
     sed 's/PRGNAM=""/PRGNAM="'$PKG_NAME'"/' > $CWD/$PKG_NAME/$PKG_NAME.info

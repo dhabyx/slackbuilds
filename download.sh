@@ -82,8 +82,15 @@ function downloadSource()
 function makeSymbolicLink()
 {
   DESTDIR=$(dirname "$CWD/$1")
-  find $DESTDIR -type l -exec rm {} \;
   ln -sf $DOWNLOAD_PATH/$2 $DESTDIR/$2
+}
+
+# Remove all symbolic links
+# how to use:
+#   removeAllLinks INFOFILE
+function removeAllLinks() {
+  DESTDIR=$(dirname "$CWD/$1")
+  find $DESTDIR -type l -exec rm {} \;
 }
 
 if [ ! -d $DOWNLOAD_PATH ]; then
@@ -96,11 +103,13 @@ for INFO in $INFO_FILES; do
   . $CWD/$INFO
   IFS=' ' read -r -a MD5SUM_ARRAY <<< $MD5SUM
   IFS=' ' read -r -a URL_ARRAY <<< $DOWNLOAD
-  if [ $URL_ARRAY = "UNSUPPORTED" -a $ARCH = "x86_64" ]; then
+  IFS=' ' read -r -a URL_ARRAY_X64 <<< $DOWNLOAD_x86_64
+  if [[ $URL_ARRAY_X64 != "" && $ARCH = "x86_64" ]] || [[ $URL_ARRAY = "UNSUPPORTED" && $ARCH = "x86_64" ]]; then
     IFS=' ' read -r -a MD5SUM_ARRAY <<< $MD5SUM_x86_64
     IFS=' ' read -r -a URL_ARRAY <<< $DOWNLOAD_x86_64
   fi
-  if [ $URL_ARRAY != "DOWNLOAD_LNK_TKN" -a $URL_ARRAY != "UNSUPPORTED" ]; then
+  if [[ $URL_ARRAY != "DOWNLOAD_LNK_TKN" && $URL_ARRAY != "UNSUPPORTED" ]]; then
+    removeAllLinks $INFO
     for index in ${!URL_ARRAY[@]}; do
       TEST=$(testSource ${URL_ARRAY[index]} ${MD5SUM_ARRAY[index]})
       FILE=$(basename ${URL_ARRAY[index]})
