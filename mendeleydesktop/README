@@ -4,3 +4,7 @@ tool for desktop and web.
 
 Before you use Mendeley, make sure that you are agree with the
 terms and conditions at http://www.mendeley.com/terms/
+
+You can enable mendeley to use the system QT5 libraries, it is highly
+recommended to be able to access all the functions if you use KDE5
+SYSTEM_QT5=yes|no (default:no)
