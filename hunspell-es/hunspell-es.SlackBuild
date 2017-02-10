@@ -36,7 +36,7 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-# Get all localizations availble
+# Getting all localizations available
 LOCALIZATIONS=*.oxt
 LOCALIZATIONS=$(echo $LOCALIZATIONS | sed -e 's/es_ANY.oxt//g' | sed -e 's/.oxt//g')
 
