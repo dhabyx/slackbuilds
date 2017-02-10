@@ -12,3 +12,4 @@
 *.deb
 downloads/
 v[0-9]*
+*.oxt
