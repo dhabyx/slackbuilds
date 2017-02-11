@@ -1,3 +1,7 @@
 Pencil is built for the purpose of providing a free and open-source
 GUI prototyping tool that people can easily install and use to create
 mockups in popular desktop platforms.
+
+This package is a release candidate, use at your own risk.
+
+This version can be installed along with 2.0.x version without any problem.

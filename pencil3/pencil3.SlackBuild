@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for pencil
+# Slackware build script for pencil3
 
 # Copyright 2017 Dhaby Xiloj <slack.dhabyx@gmail.com>
 # All rights reserved.
@@ -25,7 +25,7 @@
 PRGNAM=pencil3
 PKGNAM=pencil
 VERSION=${VERSION:-3.0.0}
-RELEASE=${RELEASE:-rc.1}
+RELEASE=${RELEASE:-rc.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -57,16 +57,19 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+# remove package generation
+sed -i -e 's/"target": \["deb", "rpm", "tar.gz"\]/"target": []/g' package.json
+
 # Building
 npm install
 ./node_modules/.bin/build --linux
 
 # Manual installation
 (
-cd dist/linux
+cd dist/linux-unpacked
 mkdir -p $PKG/usr/share/$PRGNAM
-cp -r content_shell.pak icudtl.dat libffmpeg.so libnode.so locales \
-     natives_blob.bin Pencil resources snapshot_blob.bin version \
+cp -r *.pak icudtl.dat libffmpeg.so libnode.so locales \
+     natives_blob.bin pencil resources snapshot_blob.bin \
      $PKG/usr/share/$PRGNAM
 )
 
@@ -75,7 +78,7 @@ mkdir -p $PKG/usr/bin
 cat <<EOF > $PKG/usr/bin/$PRGNAM
 #!/bin/sh
 cd /usr/share/$PRGNAM
-./Pencil
+./pencil
 EOF
 chmod a+x $PKG/usr/bin/$PRGNAM
 
@@ -93,7 +96,7 @@ cat $CWD/$PRGNAM.desktop > $PKG/usr/share/applications/$PRGNAM.desktop
 
 # Documentation
 mkdir -p $PKG/usr/doc/$PRGNAM-${VERSION}${RELEASE}
-cp -a LICENSE.md README.md dist/linux/LICENSE* \
+cp -a LICENSE.md README.md dist/linux-unpacked/LICENSE* \
   $PKG/usr/doc/$PRGNAM-${VERSION}${RELEASE}
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-${VERSION}${RELEASE}/$PRGNAM.SlackBuild
 
