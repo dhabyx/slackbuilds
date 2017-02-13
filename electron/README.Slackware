@@ -1,7 +1,8 @@
 If you need build binary applications with electron, you can use
-zip version installed with this package.
+zip version installed with this package. Remember to use INSTALL_ZIP
+feature.
 
-If you use npm electron-build for this task you nee add something
+If you use npm electron-build for this task you need add something
 like this to your package.json project:
 
 "devDependencies": {
