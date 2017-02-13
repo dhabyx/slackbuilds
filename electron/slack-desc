@@ -6,14 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                  |-----handy-ruler------------------------------------------------------|
-electron-prebuild: electron-prebuild (Library for building cross-platform applications)
-electron-prebuild:
-electron-prebuild: Electron is an open source library developed by GitHub for building
-electron-prebuild: cross-platform desktop applications with HTML, CSS, and JavaScript.
-electron-prebuild:
-electron-prebuild: Electron accomplishes this by combining Chromium and Node.js into a
-electron-prebuild: single runtime and apps can be packaged for Mac, Windows, and Linux.
-electron-prebuild:
-electron-prebuild: This is electron binary repackaged in Slackware style.
-electron-prebuild:
-electron-prebuild:
+electron: electron (Library for building cross-platform applications)
+electron:
+electron: Electron is an open source library developed by GitHub for building
+electron: cross-platform desktop applications with HTML, CSS, and JavaScript.
+electron:
+electron: Electron accomplishes this by combining Chromium and Node.js into a
+electron: single runtime and apps can be packaged for Mac, Windows, and Linux.
+electron:
+electron: This is electron binary repackaged in Slackware style.
+electron:
+electron:
