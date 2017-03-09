@@ -1,0 +1,26 @@
+# is only for easy remember SBo categories for any package and
+# used for makepkg.sh to output more usable info
+development/atom
+academic/calc
+development/electron
+audio/gmpc
+audio/gmpc-plugins
+development/grails
+system/hplip-plugin
+office/hunspell-es
+libraries/libmpd
+academic/maxima
+academic/mendeleydesktop
+multimedia/mozplugger
+audio/mpd
+system/MySQL-Sandbox
+network/noip2
+system/oracle-instantclient-basic
+system/oracle-instantclient-devel
+system/oracle-xe
+graphics/pencil3
+libraries/php-oci8
+network/pidgin-musictracker
+development/power-architect
+multimedia/spotify
+development/sqliteman

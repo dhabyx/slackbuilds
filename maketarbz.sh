@@ -3,6 +3,8 @@
 CWD=$(pwd)
 OUTPUT=${OUTPUT:-"$CWD/.."}
 
+CATEGORIES="SBoCategory"
+
 if [[ $1 = '' ]]; then
   echo "Usage: $0 <package directory>"
   exit
@@ -18,6 +20,8 @@ if [[ -d $PKGDIR ]]; then
   echo "Tarball saved on: $OUTPUT_TAR"
   MD5SUM=$(md5sum $OUTPUT_TAR | cut -f 1 -d ' ')
   echo "MD5SUM: $MD5SUM"
+  CATEGORY=$(grep $PKGDIR $CATEGORIES)
+  echo "SBo category: $CATEGORY"
 else
   echo "$PKGDIR directory not found"
 fi
