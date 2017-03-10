@@ -4,7 +4,7 @@ GITREPO=${GITREPO:-"../github-slackbuilds"}
 
 if [ "$1" = "" -o "$2" = "" ]; then
   echo "Usage: $0 SOURCE DEST_CATEGORY"
-  echo "       this makes a cp SOURCE DEST_CATEGORY/SOURCE"
+  echo "       this makes a cp DEST_CATEGORY/SOURCE SOURCE"
   echo " "
   echo "  USE: $0 --diff SOURCE DEST_CATEGORY"
   echo "       this makes a diff between SOURCE and DEST_CATEGORY/SOURCE"
@@ -68,8 +68,8 @@ fi
 for FILE in $GITREPOPATH/* ; do
   BASENAME=$(basename $FILE)
   if [ -e $SOURCE/$BASENAME ]; then
-    echo  "cp $SOURCE/$BASENAME $GITREPOPATH/$BASENAME"
-    cp $SOURCE/$BASENAME $GITREPOPATH/$BASENAME
+    echo  "cp $GITREPOPATH/$BASENAME $SOURCE/$BASENAME"
+    cp $GITREPOPATH/$BASENAME $SOURCE/$BASENAME 
   else
     echo "$BASENAME not found in SOURCE"
   fi

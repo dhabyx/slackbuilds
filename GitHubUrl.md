@@ -1,4 +1,4 @@
-# How-to proper download tarbal release files from GitHub
+# How-to proper download tarball release files from GitHub
 
 Pick up from SBo mail list.
 Wrote by David Spencer
