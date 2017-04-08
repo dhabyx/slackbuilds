@@ -1,0 +1,4 @@
+A simple monitor for plasma, completely written in QML and Javascript.
+
+KDE5 is required, you can use Alien repositories for that:
+http://bear.alienbase.nl/mirrors/alien-kde/
